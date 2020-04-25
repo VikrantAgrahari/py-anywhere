@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class='head font-weight-light'>{{data}}</h1>
+    <h2 class='head font-weight-light'>Dashboard</h2>
+    <div class="row">
+        <div class="col">
+            <div class="card-dark">
+                    <div class="card-header">Birthday Reminder
+                    </div>
+                    <div class= "card-body scrollspy">
+                        {% if to %}
+                            <span class="badge badge-danger">Name:{{to.name}}<br>Course:{{to.course}}
+                            <br>DOB:{{to.dob}}<br>Contact:{{to.contact}}
+                            </span>
+                        {% else %}
+                            <span class="badge badge-danger">No Birthdays Today.</span>
+                        {% endif %}
+                        <hr>
+                        {% if tmr %}
+                            <span class="badge badge-warning">Name:{{tmr.name}}<br>Course:{{tmr.course}}
+                            <br>DOB:{{tmr.dob}}<br>Contact:{{tmr.contact}}
+                            </span>
+                        {% else %}
+                            <span class="badge badge-warning">No Birthdays Tomorrow.</span>
+                        {% endif %}
+                    </div>
+                
+            </div>
+        </div>
+        <div class="col">
+            <div class="card-dark">
+                <div class="card-header">Classes Dashboard
+                </div>
+                <div class= "card-body scrollspy">
+                    {% for x in count %}
+                    <button type="button disbaled" class="btn btn-primary mb-4">
+                     {{x.class_name}} <span class="badge badge-light">{{x.the_count}}</span>
+                    </button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card-dark">
+                <div class="card-header">Fees Reminder
+                </div>
+                <div class= "card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% comment %} <form action="{% url "genius:home" %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form1.as_p }}
+    {{ form2.as_p }}
+    <button type="submit" value="Upload">Submit</button>
+</form> {% endcomment %}
+    
+{% endblock content %}

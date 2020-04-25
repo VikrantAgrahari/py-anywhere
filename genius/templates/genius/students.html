@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.my-custom-scrollbar {
+position: relative;
+height: 400px;
+overflow: auto;
+}
+</style>
+
+     <div class="row pull-right mb-4">
+        <form class="form-inline my-3 my-lg-2 mr-2" action="{% url 'genius:std-search' %}">
+            <input class="form-control mr-sm-2" name='q' type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-warning my-2 my-sm-0" type="search">Search</button>
+        </form> 
+    </div>
+    <div class="row ml-4">
+    <p>
+        <button class="btn btn-primary" type="button">
+            Print Documents
+        </button>
+        <a class="btn btn-success ml-3 right" href="{% url 'genius:stds-new' %}">Register New Student</a>
+        <div class="col-md-3 mb-4 justify-content-center">
+            <div class="card text-center bg-warning text-dark">
+                <div class="card-header head justify">Students So Far: <p class="badge badge-warning text-wrap ml-2"> {{count}}</p></div> 
+                </div>
+            </div>
+        </div>
+    </p> 
+    
+    </div>
+    
+<div class="card-dark card-body">
+    {% if students %}
+        <div class="table-custom-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered table-striped mb-0 table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">DOB</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Grade</th>
+                        <th scope="col">School</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {% for i in students %}
+                        <tr>
+                        <th scope="row">{{i.id}}</th>
+                        <td><a href="/stds/{{i.id}}"">{{i.name}}</a></td>
+                        <td>{{i.dob}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.gender}}</td>
+                        <td>{{i.grade}}</td>
+                        <td>{{i.attending_school}}</td>
+                        <td>{{i.address}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+    <p class="lead justify">There are no students...</p>
+    {% endif %}
+</div>
+
+{% endblock content %}

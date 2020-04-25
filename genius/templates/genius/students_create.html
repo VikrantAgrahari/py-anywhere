@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static%}
+<style>
+.my-custom-scrollbar {
+position: relative;
+height: 150px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+</style>
+<div class="row justify-content-center">
+    <div class="card text-light mb-1" style="width: 60%;">
+        <img src="https://coverfiles.alphacoders.com/247/24701.jpg" class="img-fluid" alt="Responsive image"></img>
+        <div class="card-img-overlay">
+            <h5 class="card-title lead">Students Registeration Form</h5>
+            <p class="card-text">Class Information help is provided below.</p>
+        </div>
+    </div>
+    <div class="card text-dark" style="width: 60%;">
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="card-body">
+                <form method='POST' class="mb-4" action='{% url 'genius:stds-new' %}'>
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button class="btn btn-warning" type="submit">Register</button>
+                </form>
+                <div class="card">
+                    <div class="text head">Class Information</div>
+                    <div class="card-body">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <table class="table table-bordered table-striped mb-0 table-warning">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Class Name</th>
+                                    <th scope="col">From Days</th>
+                                    <th scope="col">To Days</th>
+                                    <th scope="col">From Time</th>
+                                    <th scope="col">To Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    {% for cl in classes %}
+                                        <tr>
+                                        <th scope="row">{{cl.pk}}</th>
+                                        <td>{{cl.class_name}}</td>
+                                        <td>{{cl.from_days}}</td>
+                                        <td>{{cl.to_days}}</td>
+                                        <td>{{cl.from_time}}</td>
+                                        <td>{{cl.to_time}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+    
+    
+
+    
+{% endblock content %}
+
+
+
+{% block javascript %}
+    <script>
+        $(function () {
+        $('.datetime-input').datetimepicker({
+            format:'YYYY-MM-DD'
+        });
+        });
+    </script>
+{% endblock javascript %}
+
+
+/*
+    $(document).ready(function(){
+    var $myform = $(".parent-form")
+    $myform.submit(function(event){
+        event.preventDefault();
+        var $formData= $(this).serialize();
+        console.log($formData);
+        var $endpoint= $myform.attr("data-url");
+        console.log($endpoint);
+        $.ajax({
+            method:"POST",
+            url: $endpoint,
+            data: $formData,
+            success: handleFormSuccess,
+            error :  handleFormError,
+        });
+        function handleFormSuccess(data, textStatus, jqXHR){
+            console.log(data['msg']);
+            console.log(textStatus);
+            console.log(jqXHR);
+            document.getElementById("ret_val").innerHTML = data['msg'];
+            setTimeout(function() { $("#ret_val").hide(); }, 3000);
+            setTimeout(function() {location.reload();}, 1000); 
+            console.log(data['msg'])
+            //$("#ret_val").show();
+            //$myform[0].reset();
+        };
+
+        function handleFormError(data, textStatus, errorThrown){
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+            document.getElementById("ret_val").innerHTML = data['msg'];
+            setTimeout(function() { $("#ret_val").hide(); }, 3000);
+            };
+            
+        });
+    });  */

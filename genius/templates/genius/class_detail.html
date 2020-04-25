@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row ">
+    <div class="col">
+        <h1 class="ml-4">Delete Class Room</h1>
+    </div>
+    <div class="col-9 text-center">
+        <div class="">
+            <div class="card-dark text-light ">
+                    <div class="card-body">
+                            
+                        <p class="lead font-weight-bold">Class Name : {{obj.class_name}}</p>
+                        <p class="lead">Class Days : {{obj.from_days}} to {{obj.to_days}}</p>
+                        <p class="lead">Class Timing : {{obj.from_time}} to {{obj.to_time}}</p>
+                    </div>
+                    <div class="card-foot mb-3">
+                        <a class="btn btn-primary" href="{{ obj.get_edit_url }}">Edit</a>
+                        <a class="btn btn-danger ml-2" href="{{ obj.get_delete_url }}">Delete</a>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

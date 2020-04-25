@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row ">
+    <div class="col">
+        <h1 class="ml-4">Detail information <br> about Student : {{obj.name}}</h1>
+    </div>
+    <div class="col-6">
+        <div class="">
+            <div class="card-dark text-light ">
+                    <div class="card-body">
+                            
+                        <p class="lead font-weight-bold"> Name : {{obj.name}}</p>
+                        <p class="lead">DOB : {{obj.dob}}</p>
+                        <p class="lead">Age : {{obj.age}}</p>
+                        <p class="lead">Gender : {{obj.gender}}</p>
+                        <p class="lead">Grade : {{obj.grade}}</p>
+                        <p class="lead">Attending School : {{obj.attending_school}}</p>
+                        <p class="lead">Course : {{obj.course.class_name}}</p>
+                        <p class="lead">Address : {{obj.address}}</p>
+                        <p class="lead">Gurdian Name : {{obj.parent_name}}</p>
+                        <p class="lead">Gurdian Contact : {{obj.parent_contact}}</p>
+                        <p class="lead">Gurdian Address : {{obj.parent_address}}</p>
+                        <p class="lead">Emergency Name : {{obj.emerg_name}}</p>
+                        <p class="lead">Emergency Contact : {{obj.emerg_contact}}</p>
+                        <p class="lead">Emergency Realtion : {{obj.emerg_relation}}</p>
+                        <p class="lead">Doctor Name : {{obj.doc_name}}</p>
+                        <p class="lead">Contact : {{obj.doc_contact}}</p>
+                        <p class="lead">Blood Type : {{obj.blood_type}}</p>
+                        <p class="lead">Allergic : {{obj.allergic}}</p>
+
+                        
+                    </div>
+                    <div class="card-foot mb-3">
+                        <a class="btn btn-primary" href="{{ obj.get_edit_student }}">Edit</a>
+                        <a class="btn btn-danger ml-2" href="{{ obj.get_delete_student }}">Delete</a>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+    </div>
+</div>
+
+
+{% endblock content %}

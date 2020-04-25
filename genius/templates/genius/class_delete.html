@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Are you sure you want to delete the following class?</h1>
+<p class="lead">Class Name : {{obj.class_name}}<br>Days : {{obj.from_days}} to {{obj.to_days}}<br>Time : {{obj.from_time}} to {{obj.to_time}}</p>
+<form method="POST" action=".">
+{% csrf_token %}
+<button class="btn btn-danger">Yes, Delete</button>
+</form>
+{% endblock content %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+ <style>
+        .scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    }
+    </style>
+    
+    <div class="row justify-content-center">
+        
+        <h1 class="text-center">Create New Class of <br>Little Genius</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col">
+            
+            <div class="card text-dark">
+                    <label class="lead mb-4">Create Little Genius Class</label>
+                    <div class="form-group col-12 center">
+                        <form method='POST' action='{% url 'genius:create-class' %}'>
+                            {% csrf_token %}
+                             <select class="custom-select mb-3" name="select">
+                                <option selected>Click to select Class Name</option>
+                               {% for i in c_names  %}
+                               <option value="{{i.name}}">{{i.name}}</option>
+                               {% endfor %}
+                            </select>
+                            {{form.as_p}}
+                            <br>
+                            <button class="btn btn-warning" type="submit">Create</button>
+                            
+                        </form>
+                    </div>
+                
+            </div>
+        </div>
+        <div class="col">
+            <div class="card-dark scroll">
+                <div class="lead card-header">Classes so far...
+                </div>
+                <div class= "card-body scrollspy">
+                    {% for x in count %}
+                    <button type="button" class="btn btn-primary mb-4">
+                     {{x.class_name}} <span class="badge badge-light">{{x.the_count}}</span>
+                    </button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    
+{% endblock content %}
+
+{% block javascript %}
+    <script>
+        $(function () {
+            $('.from-date').datetimepicker({
+                format:'YYYY-MM-DD'
+            });
+        });
+
+        $(function () {
+            $('.from-time').datetimepicker({
+                format:'LT'
+            });
+        });
+    </script>
+{% endblock javascript %}

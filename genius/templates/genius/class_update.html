@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h1>{{title}}</h1>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+                <div class="card text-dark ">
+                    <div class="card-body">
+                    <form method='POST' class="form-group" action='.'>
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <br>
+                        <button class="btn btn-warning" type="submit">Update</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}
+
+{% block javascript %}
+    <script>
+        $(function () {
+            $('.from-date').datetimepicker({
+                format:'YYYY-MM-DD'
+            });
+        });
+
+        $(function () {
+            $('.from-time').datetimepicker({
+                format:'LT'
+            });
+        });
+    </script>
+{% endblock javascript %}

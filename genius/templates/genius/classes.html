@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .scroll {
+    max-height: 120px;
+    overflow-y: auto;
+    }
+    </style>
+    
+    <div class="row ml-4">
+        <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            View classes
+            </button>
+            <a class="btn btn-success ml-2" type="button" href="{%url 'genius:create-class'%}">
+            Create class
+            </a>
+            <div class="col-md-3 mb-4">
+                <div class="card text-dark">       
+                    <div class="form-group col-12 center">
+                    <form method="POST" data-url="{%url 'genius:add-name'%}" id="post-form" class="ajax-form">
+
+                        <label class="lead mb-4">Create Class Name</label>
+                        <input type="text" name="class-name" class="form-control mb-3 save-data" placeholder="Name" aria-describedby="helpId">
+                        <div class="row">
+                        <button class="btn btn-success ml-3" id="save-name">Save</button>
+                        <p class="badge badge-warning text-wrap ml-2" id="ret_val" ></p>
+                        </div>
+                    </form>
+                    </div>         
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card text-dark">
+                    <div class="card-header">Names of the Classes</div>
+                        <div class= "card-body scroll">
+                            {% for x in class %}
+                            
+                            <span class="badge badge-pill badge-primary">{{x.name}}</span>
+                            
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p>
+    </div>
+    <div class="collapse mb-4" id="collapseExample">
+        <div class="card card-body">
+            {% if classes %}
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Class Name</th>
+                    <th scope="col">Days</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Created On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in classes %}
+                    <tr>
+                    <th scope="row">{{i.id}}</th>
+                    <td><a href='{{i.get_absolute_url}}'>{{i.class_name}}</a></td>
+                    <td>{{i.from_days}} - {{i.to_days}}</td>
+                    <td>{{i.from_time}} - {{i.to_time}}</td>
+                    <td>{{i.created_by}}</td>
+                    <td>{{i.created_on}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="lead justify">There are no class created so far...</p>
+            {% endif %}
+        </div>
+    </div>
+    
+        
+    
+{% endblock content %}
+
+{% block javascript%}
+<script>
+    $(document).ready(function(){
+    var $myform = $(".ajax-form")
+    $myform.submit(function(event){
+        event.preventDefault();
+        var $formData= $(this).serialize();
+        console.log($formData);
+        var $endpoint= $myform.attr("data-url");
+        console.log($endpoint);
+      
+        $.ajax({
+            method:"POST",
+            url: $endpoint,
+            data: $formData,
+            success: handleFormSuccess,
+            error :  handleFormError,
+        });
+        function handleFormSuccess(data, textStatus, jqXHR){
+            console.log(data['msg']);
+            console.log(textStatus);
+            console.log(jqXHR);
+            document.getElementById("ret_val").innerHTML = data['msg'];
+            setTimeout(function() { $("#ret_val").hide(); }, 3000);
+            //$("#ret_val").show();
+            
+            $myform[0].reset();
+        };
+
+        function handleFormError(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        };
+    });
+});  
+</script>
+{% endblock javascript %}

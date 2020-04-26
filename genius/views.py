@@ -4,6 +4,7 @@ from .forms import (Creat_Class_Form, Create_Class_Model_Form,
                     Student_Model_Form)
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout , update_session_auth_hash
 from django.db.models import Count
 from django.http import JsonResponse, HttpResponse
 from datetime import datetime, date
@@ -271,3 +272,5 @@ def Search(request):
     template_name = 'genius/students.html'
     context = {'head_title': 'Little Genius Students', 'students':results,'count':std_count}
     return render(request, template_name, context)
+
+

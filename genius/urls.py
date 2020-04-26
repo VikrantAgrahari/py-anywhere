@@ -1,5 +1,5 @@
 from django import urls
-from django.urls import path
+from django.urls import path, include
 from genius.views import (home, Class_create, Class_Update, Class_Delete, Class_Detail, Classes, Add_name,
                           Student_Main, Student_Create, Student_Update, Student_Delete, Student_Detail, Search)
 
@@ -7,6 +7,7 @@ app_name = 'genius'
 
 urlpatterns = [
     path('', home, name='home'),
+    path('user/', include('userconsole.urls')),
     path('class/', Classes, name='class'),
     path('class/add-name', Add_name, name='add-name'),
     path('class/create', Class_create, name='create-class'),

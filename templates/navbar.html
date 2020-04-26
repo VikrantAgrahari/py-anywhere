@@ -15,7 +15,23 @@
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'genius:stds'%}">Students</a>
       </li>
+
+    </ul>
+    <ul class="nav navbar-right ">
+      {% if user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="btn btn-outline-dark " href="#">{{user.username|capfirst}}</a>
+      </li>
+      <li class="nav-item active">
+          <a class=" btn btn-outline-dark" href="{% url 'user:logout' %}">Logout </a>
+        </li>
+      {% else %}
+        <li class="nav-item active">
+          <a class=" btn btn-outline-dark" href="{% url 'user:login_page' %}">Login </a>
+        </li>
+      {% endif %}
       
+    </ul>
       
   </div>
   

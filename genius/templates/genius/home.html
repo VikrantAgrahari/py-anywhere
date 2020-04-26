@@ -10,11 +10,11 @@
                     </div>
                     <div class= "card-body scrollspy">
                         {% if to %}
-                            <span class="badge badge-danger">Name:{{to.name}}<br>Course:{{to.course}}
+                            <span class="badge badge-warning">Name:{{to.name}}<br>Course:{{to.course}}
                             <br>DOB:{{to.dob}}<br>Contact:{{to.contact}}
                             </span>
                         {% else %}
-                            <span class="badge badge-danger">No Birthdays Today.</span>
+                            <span class="badge badge-warning">No Birthdays Today.</span>
                         {% endif %}
                         <hr>
                         {% if tmr %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-3">
+        <div class="card text-dark">
+            <div class="card-title lead text-center">Login</div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'user:login_user'%}">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+

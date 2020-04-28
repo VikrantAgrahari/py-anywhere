@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card text-dark">
+            {% for d in data %}
+            <div class="card-title ml-3">
+                <h2>{{d.username}}'s Profile</h2>
+            </div>
+            <div class="card-body">
+                <p class="lead"> Username : {{d.username}}</p>
+                <p class="lead"> Email : {{d.email}}
+            </div>
+            {% endfor %}
+            <div class="card-foot">
+                <a class="ml-2 mb-2 btn btn-primary" href="{% url 'user:edit_profile'%}">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

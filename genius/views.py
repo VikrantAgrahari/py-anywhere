@@ -26,8 +26,8 @@ def home(request):
     context = {'head_title': "Little Genius",
                'data': 'Little Genius-School of Science & Technology',
                'count': objs,
-               'tmr':tmr_bday,
-               'to':to_bday,
+               'tmrbday':tmr_bday,
+               'tobday':to_bday,
                }
     return render(request, template_name, context)
 

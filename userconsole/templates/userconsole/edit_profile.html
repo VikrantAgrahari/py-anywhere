@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card text-dark">
+                <div class="card-title lead text-center">Edit Profile of {{request.user|capfirst}}</div>
+                <div class="card-body">
+                    <form method="POST" action=".">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        {% if form_errors %}
+                            {% for e in form_errors %}
+                                {{e.error}}
+                            {% endfor %}
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}

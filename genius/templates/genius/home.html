@@ -2,34 +2,57 @@
 
 {% block content %}
     <h1 class='head font-weight-light'>{{data}}</h1>
-    <h2 class='head font-weight-light'>Dashboard</h2>
+    <h2 class='head font-weight-light text-center'>Dashboard</h2>
     <div class="row">
         <div class="col">
-            <div class="card-dark">
+            <div class="card bg-light text-dark">
                     <div class="card-header">Birthday Reminder
                     </div>
                     <div class= "card-body scrollspy">
-                        {% if to %}
-                            <span class="badge badge-warning">Name:{{to.name}}<br>Course:{{to.course}}
-                            <br>DOB:{{to.dob}}<br>Contact:{{to.contact}}
-                            </span>
-                        {% else %}
-                            <span class="badge badge-warning">No Birthdays Today.</span>
-                        {% endif %}
-                        <hr>
-                        {% if tmr %}
-                            <span class="badge badge-warning">Name:{{tmr.name}}<br>Course:{{tmr.course}}
-                            <br>DOB:{{tmr.dob}}<br>Contact:{{tmr.contact}}
-                            </span>
-                        {% else %}
-                            <span class="badge badge-warning">No Birthdays Tomorrow.</span>
-                        {% endif %}
+                        <table class="table table-sm table-dark">
+                            <thead>
+                                <tr>
+                                <th scope="col">Day</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Course</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">DOB</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if tobday %}
+                                    {% for t in tobday %}
+                                    <tr class="bg-danger">
+                                     <td>Today</td>
+                                    <td>{{t.name}}</td>
+                                    <td>{{t.course}}</td>
+                                    <td>{{t.contact}}</td>
+                                    <td>{{t.dob}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if tmrbday %}
+                                    {% for m in tmrbday %}
+                                    <tr class="bg-info">
+                                    <td>Tomorrow</td>
+                                    <td>{{m.name}}</td>
+                                    <td>{{m.course}}</td>
+                                    <td>{{m.contact}}</td>
+                                    <td>{{m.dob}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                
+                               
+                                
+                            </tbody>
+                        </table>
                     </div>
                 
             </div>
         </div>
         <div class="col">
-            <div class="card-dark">
+            <div class="card bg-secondary text-light">
                 <div class="card-header">Classes Dashboard
                 </div>
                 <div class= "card-body scrollspy">
@@ -42,7 +65,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card-dark">
+            <div class="card bg-info">
                 <div class="card-header">Fees Reminder
                 </div>
                 <div class= "card-body">

@@ -20,7 +20,7 @@
     <ul class="nav navbar-right ">
       {% if user.is_authenticated %}
       <li class="nav-item active">
-        <a class="btn btn-outline-dark " href="#">{{user.username|capfirst}}</a>
+        <a class="btn btn-outline-dark " href="{% url 'user:profile'%}">{{user.username|capfirst}}</a>
       </li>
       <li class="nav-item active">
           <a class=" btn btn-outline-dark" href="{% url 'user:logout' %}">Logout </a>
@@ -28,6 +28,9 @@
       {% else %}
         <li class="nav-item active">
           <a class=" btn btn-outline-dark" href="{% url 'user:login_page' %}">Login </a>
+        </li>
+        <li class="nav-item active">
+          <a class="ml-2 btn btn-outline-success" href="{% url 'user:new_user' %}">Register </a>
         </li>
       {% endif %}
       

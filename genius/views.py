@@ -24,7 +24,6 @@ def home(request):
     # print(objs)
     template_name = 'genius/home.html'
     context = {'head_title': "Little Genius",
-               'data': 'Little Genius-School of Science & Technology',
                'count': objs,
                'tmrbday':tmr_bday,
                'tobday':to_bday,

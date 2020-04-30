@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class='head font-weight-light'>{{data}}</h1>
-    <h2 class='head font-weight-light text-center'>Dashboard</h2>
+    <h1 class='head font-weight-light'></h1>
+    <h1 class='head font-weight-light text-center mb-4'>Dashboard</h1>
     <div class="row">
         <div class="col">
             <div class="card bg-light text-dark">
@@ -57,7 +57,7 @@
                 </div>
                 <div class= "card-body scrollspy">
                     {% for x in count %}
-                    <button type="button disbaled" class="btn btn-primary mb-4">
+                    <button type="button disabled" class="btn btn-primary mb-4">
                      {{x.class_name}} <span class="badge badge-light">{{x.the_count}}</span>
                     </button>
                     {% endfor %}

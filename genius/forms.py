@@ -31,8 +31,8 @@ class Create_Class_Model_Form(forms.ModelForm):
         # print(classname)
         widgets = {
             #'class_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'from_days': forms.DateTimeInput(attrs={'class': 'from-date form-control'}),
-            'to_days': forms.DateTimeInput(attrs={'class': 'from-date form-control'}),
+            'from_days': forms.Select(choices=from_choice ,attrs={'class': 'form-control'}),
+            'to_days': forms.Select(choices=from_choice, attrs={'class': 'form-control'}),
             'from_time': forms.DateTimeInput(attrs={'class': 'from-time form-control'}),
             'to_time': forms.DateTimeInput(attrs={'class': 'from-time form-control'}),
         }

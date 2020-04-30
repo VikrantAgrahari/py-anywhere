@@ -64,10 +64,12 @@ class StudentPostManager(models.Manager):
         return self.get_query_set().search(query)
 
 
+
 class Students(models.Model):
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, default=1, null=True)
     name = models.CharField(max_length=200, null=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
     dob = models.DateField(null=True, verbose_name='Date of Birth')
     age = models.IntegerField()
     grade_choice = (

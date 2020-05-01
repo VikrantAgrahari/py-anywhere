@@ -139,3 +139,22 @@ class Students(models.Model):
 
     def get_delete_student(self):
         return f"{self.get_absolute_url()}/delete"
+
+
+class Payment(models.Model):
+    std= models.ForeignKey(Students, on_delete=models.CASCADE)
+    date= models.DateField(auto_now=True, auto_now_add=False)
+    amount= models.IntegerField(null=True)
+    currency_choice=(
+        ('USD', 'USD'),
+        ('MMK', 'Kyats'),
+    )
+    currency= models.CharField(choices=currency_choice ,max_length=50, null=True)
+    pay_type=(
+        ('Cash', 'Cash'),
+        ('Card', 'Card'),
+        ('KBZ_Pay', 'KBZ Pay'),
+    )
+    payment_type=models.CharField(choices=pay_type, max_length=50, null=True)
+    remind_date= models.DateField( null=True)
+    comment= models.TextField(null=False)

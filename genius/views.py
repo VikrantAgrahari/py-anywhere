@@ -20,8 +20,7 @@ def home(request):
     #tmr_bday, to_bday = Birthday_alert()
     objs = Create_Class.objects.values(fieldname).order_by(
         fieldname).annotate(the_count=Count(fieldname))
-    # print(objs)
-    messages.add_message(request, messages.INFO, 'Yeehaw!')
+    # print(objs
     template_name = 'genius/home.html'
     context = {'head_title': "Little Genius",
                'count': objs,
@@ -93,16 +92,16 @@ def Class_create(request):
                 #obj.created_by = request.user.username
                 obj.save()
                 print('successful')
-                messages.success(request, 'Saved Successfully')
+                messages.add_message(request, messages.SUCCESS, 'Saved Successfully.')
                 form = Create_Class_Model_Form()
             else:
                 #messages.error(request, 'Something wrong with data')
                 form = Create_Class_Model_Form()
 
         else:
-            messages.error(request, 'Please select the class name')
+            messages.add_message(request, messages.WARNING, 'Select a Class!')
     else:
-        messages.error(request, 'This class already exists')
+        messages.add_message(request, messages.WARNING, 'The Class already exists!')
     c_names = Name_of_classes.objects.values('name')
     templatename = 'genius/class_create.html'
     context = {'form': form, 'c_names': c_names, 'count': objs}
@@ -121,7 +120,7 @@ def Class_Update(request, id):
     form = Create_Class_Model_Form(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Class Updated Successfully.')
+        messages.add_message(request, messages.SUCCESS, 'Updated Successfully.')
     templatename = 'genius/class_update.html'
     context = {'form': form,
                'head_title': f"Update {obj.class_name}",
@@ -149,8 +148,6 @@ def Student_Main(request):
 
 def Student_Create(request):
     form = Student_Model_Form(request.POST or None, request.FILES or None)
-    image= request.FILES['image']
-    print(image)
     print('Student view came')
     cls=get_class_parent_detail()
     if request.method =='POST':
@@ -166,10 +163,10 @@ def Student_Create(request):
             obj = form.save(commit=False)
             obj.age = get_age
             obj.save()
-            messages.success(request, 'Student is registered successfully')
+            messages.add_message(request, messages.SUCCESS, 'Registeration Successful.')
             form=Student_Model_Form()   
         else:
-            messages.error(request,form.errors)
+            messages.add_message(request, messages.WARNING, form.errors)
             print(form.errors)  
     template_name = 'genius/students_create.html'
     context = {'form': form,'classes':cls}
@@ -186,10 +183,10 @@ def Student_Detail(request, id):
 
 def Student_Update(request, id):
     obj = get_object_or_404(Students, id=id)
-    form = Student_Model_Form(request.POST or None, instance=obj)
+    form = Student_Model_Form(request.POST or None, request.FILES or None, instance=obj)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Student Updated Successfully.')
+        messages.add_message(request, messages.SUCCESS, 'Updated Successfully.')
         return redirect('/stds')
     templatename = 'genius/student_update.html'
     context = {'form': form,
@@ -202,7 +199,7 @@ def Student_Delete(request, id):
     templatename = 'genius/students_delete.html'
     if request.method == "POST":
         objs.delete()
-        messages.success(request,'Deleted Successfully.')
+        messages.add_message(request, messages.SUCCESS, 'Deleted Successfully.')
         return redirect("/stds")
     context = {'obj': objs, 'form': None}
     return render(request, templatename, context)

@@ -1,46 +1,65 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row ">
-    <div class="col">
-        <h1 class="ml-4">Detail information <br> about Student : {{obj.name}}</h1>
-    </div>
-    <div class="col-6">
-        <div class="">
-            <div class="card-dark text-light ">
-                    <div class="card-body">
-                            
-                        <p class="lead font-weight-bold"> Name : {{obj.name}}</p>
-                        <p class="lead">DOB : {{obj.dob}}</p>
-                        <p class="lead">Age : {{obj.age}}</p>
-                        <p class="lead">Gender : {{obj.gender}}</p>
-                        <p class="lead">Grade : {{obj.grade}}</p>
-                        <p class="lead">Attending School : {{obj.attending_school}}</p>
-                        <p class="lead">Course : {{obj.course.class_name}}</p>
-                        <p class="lead">Address : {{obj.address}}</p>
-                        <p class="lead">Gurdian Name : {{obj.parent_name}}</p>
-                        <p class="lead">Gurdian Contact : {{obj.parent_contact}}</p>
-                        <p class="lead">Gurdian Address : {{obj.parent_address}}</p>
-                        <p class="lead">Emergency Name : {{obj.emerg_name}}</p>
-                        <p class="lead">Emergency Contact : {{obj.emerg_contact}}</p>
-                        <p class="lead">Emergency Realtion : {{obj.emerg_relation}}</p>
-                        <p class="lead">Doctor Name : {{obj.doc_name}}</p>
-                        <p class="lead">Contact : {{obj.doc_contact}}</p>
-                        <p class="lead">Blood Type : {{obj.blood_type}}</p>
-                        <p class="lead">Allergic : {{obj.allergic}}</p>
-
-                        
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div class="card text-dark">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-3">
+                        {% if obj.image %}
+                        <div class="row">
+                         <img src="{{obj.image.url}}" class=" ml-4 rounded float-left" style="width:120px; height:150px;"/>
+                        </div>
+                        {% endif %}
                     </div>
-                    <div class="card-foot mb-3">
-                        <a class="btn btn-primary" href="{{ obj.get_edit_student }}">Edit</a>
-                        <a class="btn btn-danger ml-2" href="{{ obj.get_delete_student }}">Delete</a>
-                    </div> 
+                    <div class="col">
+                        <h3>{{obj.name}}</h3>
+                        <p class="text-info lead">{{obj.course.class_name}}</p>
+                        <h4 class="text-primary">{{obj.course.from_days}}-{{obj.course.to_days}} | {{obj.course.from_time}} - {{obj.course.to_time}}</h4>
+                        <hr>
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-lead">Info</p>
+                                <p class="text-primary">DOB - {{obj.dob}}</p>
+                                <p class="text-primary">Age - {{obj.age}}</p>
+                                <p class="text-primary">Grade - {{obj.grade}}</p>
+                                <p class="text-primary">Gender - {{obj.gender}}</p>
+                                <p class="text-primary">School - {{obj.attending_school}}</p>
+                                <p class="text-primary">Address - {{obj.address}}</p>
+                            </div>
+                            <div class="col">
+                                <p class="text-lead">Gurdian Info</p>
+                                <p class="text-primary">Name - {{obj.parent_name}}</p>
+                                <p class="text-primary">Contact - {{obj.parent_contact}}</p>
+                                <p class="text-primary">Address - {{obj.parent_address}}</p>
+                            </div>
+                            <div class="col">
+                                <p class="text-lead">Emergency Info</p>
+                                <p class="text-primary">Name - {{obj.emerg_name}}</p>
+                                <p class="text-primary">Contact - {{obj.emerg_contact}}</p>
+                                <p class="text-primary">Address - {{obj.emerg_relation}}</p>
+                            </div>
+                            <div class="col">
+                                <p class="text-lead">Health Info</p>
+                                <p class="text-primary">Doctor Name - {{obj.doc_name}}</p>
+                                <p class="text-primary">Contact - {{obj.doc_contact}}</p>
+                                <p class="text-primary">Blood - {{obj.blood_type}}</p>
+                                <p class="text-primary">Allergic - {{obj.allergic}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-foot mb-3">
+                <div class="row ml-3">
+                    <a class="btn btn-primary" href="{{ obj.get_edit_student }}">Edit</a>
+                    <a class="btn btn-danger ml-2" href="{{ obj.get_delete_student }}">Delete</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col">
-    </div>
+    
 </div>
 
 

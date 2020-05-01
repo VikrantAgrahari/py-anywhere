@@ -20,12 +20,12 @@
     {% include 'navbar.html' %}
     
     <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-center">
             {% if messages %}
                 {% for message in messages %}
-                    <div{% if message.tags %} class="alert alert-{{ message.tags }} col-10"{% endif %}>
+                    <div{% if message.tags %} class="alert alert-{{ message.tags }} col-6"{% endif %}>
                     <a class="close" data-dismiss="alert" href="#">&times;</a>
-                    {{ message }}
+                    <strong>{{message.tags|capfirst}}!</strong>&nbsp;{{ message }}
                     </div>
                 {% endfor %}
             {% endif %}

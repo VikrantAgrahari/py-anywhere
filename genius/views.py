@@ -9,7 +9,6 @@ from django.db.models import Count
 from django.http import JsonResponse, HttpResponse
 from datetime import datetime, date
 import datetime as dt
-
 from datetime import timedelta
 from django.utils import timezone
 # Create your views here.
@@ -22,6 +21,7 @@ def home(request):
     objs = Create_Class.objects.values(fieldname).order_by(
         fieldname).annotate(the_count=Count(fieldname))
     # print(objs)
+    messages.add_message(request, messages.INFO, 'Yeehaw!')
     template_name = 'genius/home.html'
     context = {'head_title': "Little Genius",
                'count': objs,
@@ -148,7 +148,9 @@ def Student_Main(request):
 
 
 def Student_Create(request):
-    form = Student_Model_Form(request.POST or None)
+    form = Student_Model_Form(request.POST or None, request.FILES or None)
+    image= request.FILES['image']
+    print(image)
     print('Student view came')
     cls=get_class_parent_detail()
     if request.method =='POST':
@@ -172,6 +174,9 @@ def Student_Create(request):
     template_name = 'genius/students_create.html'
     context = {'form': form,'classes':cls}
     return render(request, template_name, context)
+
+
+
 
 def Student_Detail(request, id):
     objs = get_object_or_404(Students, id=id)

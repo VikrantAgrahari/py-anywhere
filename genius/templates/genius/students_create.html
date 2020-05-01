@@ -36,7 +36,7 @@ display: block;
                     {% endfor %}
                 {% endif %}
                 <div class="card-body">
-                <form method='POST' class="mb-4" action='{% url 'genius:stds-new' %}'>
+                <form method='POST' class="mb-4" action="{% url 'genius:stds_new'%}" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{form.as_p}}
                     <button class="btn btn-warning" type="submit">Register</button>

@@ -24,7 +24,7 @@
                                     {% for t in tobday %}
                                     <tr class="bg-danger">
                                      <td>Today</td>
-                                    <td>{{t.name}}</td>
+                                    <td><a href="/stds/{{t.id}}">{{t.name}}</a></td>
                                     <td>{{t.course}}</td>
                                     <td>{{t.contact}}</td>
                                     <td>{{t.dob}}</td>
@@ -35,7 +35,7 @@
                                     {% for m in tmrbday %}
                                     <tr class="bg-info">
                                     <td>Tomorrow</td>
-                                    <td>{{m.name}}</td>
+                                    <td><a href="/stds/{{m.id}}">{{m.name}}</a></td>
                                     <td>{{m.course}}</td>
                                     <td>{{m.contact}}</td>
                                     <td>{{m.dob}}</td>

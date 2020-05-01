@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
+<div class="row justify-content-center mb-3">
     <div class="col-10">
         <div class="card text-dark">
             <div class="card-body">
@@ -59,7 +59,38 @@
             </div>
         </div>
     </div>
-    
+</div>
+<div class="row justify-content-center">
+    <div class="col-10">
+        <table class="table  table-bordered table-striped mb-0 table-info">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Course</th>
+                <th scope="col">Date</th>
+                <th scope="col">Payment Type</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Left Amount</th>
+                <th scope="col">Remind Date</th>
+                <th scope="col">Comment</th>
+                </tr>
+            </thead>
+            <tbody class="text-center" >
+                {% for cl in pay %}
+                    <tr>
+                    <th scope="row">{{cl.pk}}</th>
+                    <td>{{cl.std.course.class_name}}</td>
+                    <td><small>{{cl.date}}</small></td>
+                    <td><small>{{cl.payment_type}}</small></td>
+                    <td>{{cl.amount}}</td>
+                    <td>{{cl.left_amount}}</td>
+                    <td>{{cl.remind_date}}</td>
+                    <td>{{cl.comment}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 

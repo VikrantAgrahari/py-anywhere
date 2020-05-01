@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.my-custom-scrollbar {
+position: relative;
+height: 600px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+</style>
+    <div class="row justify-content-center">
+        <h4 class="lead">Create Payment Record</h4>
+    </div>
+    <div class="row">
+        <div class='col-5'>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table table-bordered table-striped mb-0 table-info">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Course</th>
+                        <th scope="col">Days</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        {% for cl in stds %}
+                            <tr>
+                            <th scope="row">{{cl.pk}}</th>
+                            <td>{{cl.name}}</td>
+                            <td><small>{{cl.course.class_name}}</small></td>
+                            <td><small>{{cl.course.from_days}}-{{cl.course.to_days}}</small></td>
+                            <td>{{cl.course.from_time}}-{{cl.course.to_time}}</td>
+                            <td>{{cl.parent_contact}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class='col'>
+            <div class="card bg-info text-dark">
+                <form method='POST' action='.'>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit" class="btn btn-warning text-dark">Submit</button>
+                    </div>
+                    <div class="card-foot">
+                        
+                    </div>
+                 </form>
+            </div>
+        </div>
+    </div>
+    
+        
+   
+
+{% endblock content %}
+
+
+{% block javascript %}
+<script>
+        $(function () {
+            $('.datetime-input').datetimepicker({
+                format:'YYYY-MM-DD'
+            });
+        });
+    </script>
+{% endblock javascript %}

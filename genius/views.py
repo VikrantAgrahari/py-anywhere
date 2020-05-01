@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Create_Class, Name_of_classes, Students
+from .models import Create_Class, Name_of_classes, Students, Payment
 from .forms import (Creat_Class_Form, Create_Class_Model_Form,
-                    Student_Model_Form)
+                    Student_Model_Form, Payment_Model_Form)
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout , update_session_auth_hash
@@ -177,8 +177,9 @@ def Student_Create(request):
 
 def Student_Detail(request, id):
     objs = get_object_or_404(Students, id=id)
+    payments= Payment.objects.filter(std=id)
     templatename = 'genius/students_detail.html'
-    context = {'obj': objs, 'form': None}
+    context = {'obj': objs, 'form': None, 'pay':payments}
     return render(request, templatename, context)
 
 def Student_Update(request, id):
@@ -228,6 +229,7 @@ def Birthday_alert():
 
     for l in std_today:
         tday.append({
+            'id':l.id,
             'name':l.name,
             'course':l.course.class_name,
             'contact':l.parent_contact,
@@ -237,6 +239,7 @@ def Birthday_alert():
 
     for l in std_tmr:
         tmr.append({
+            'id':l.id,
             'name':l.name,
             'course':l.course.class_name,
             'contact':l.parent_contact,
@@ -275,3 +278,38 @@ def Search(request):
     return render(request, template_name, context)
 
 
+def Payment_Create(request):
+    form= Payment_Model_Form(request.POST or None)
+    objs= Students.objects.all()
+    cur_left=0
+    if request.method == "POST":
+        cost= get_object_or_404(Students, id=form.data['std'])
+        course_amt= cost.course.cost
+        print(course_amt)
+        if form.is_valid():
+            print(form.data)
+            get_total= Payment.objects.filter(std=form.data['std'])
+            if get_total:
+                for l in get_total:
+                    cur_left += l.amount
+                cur_amount= form.data['amount']
+                cur_total=int(cur_amount)+int(cur_left) # student paid for course including current paying
+                left_amount= int(course_amt)-int(cur_total) #got the left amount to put
+                opt= form.save(commit=False)
+                opt.left_amount= left_amount
+                opt.save()
+                print('Saved as Previous Payment')
+                messages.add_message(request, messages.SUCCESS, 'Submitted Successfully.')
+            else:
+                cur_amount= form.data['amount']
+                left_amount= int(course_amt)-int(cur_amount) #got the left amount to put
+                opt= form.save(commit=False)
+                opt.left_amount= left_amount
+                opt.save()
+                print('Saved as New Payment')
+                messages.add_message(request, messages.SUCCESS, 'Submitted Successfully.')
+        else:
+            messages.add_message(request, messages.ERROR, form.errors)
+    template_name='genius/payment.html'
+    context={'form':form, 'stds':objs}
+    return render(request, template_name, context)

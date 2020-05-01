@@ -25,6 +25,7 @@ class Create_Class(models.Model):
     to_days = models.CharField(max_length=10, choices=from_choice)
     from_time = models.TimeField()
     to_time = models.TimeField()
+    cost= models.CharField(max_length=50, null=True, default=300)
     created_on = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
@@ -144,17 +145,13 @@ class Students(models.Model):
 class Payment(models.Model):
     std= models.ForeignKey(Students, on_delete=models.CASCADE)
     date= models.DateField(auto_now=True, auto_now_add=False)
-    amount= models.IntegerField(null=True)
-    currency_choice=(
-        ('USD', 'USD'),
-        ('MMK', 'Kyats'),
-    )
-    currency= models.CharField(choices=currency_choice ,max_length=50, null=True)
+    amount= models.FloatField(max_length=50, null=False, default=0)
     pay_type=(
         ('Cash', 'Cash'),
         ('Card', 'Card'),
         ('KBZ_Pay', 'KBZ Pay'),
     )
     payment_type=models.CharField(choices=pay_type, max_length=50, null=True)
-    remind_date= models.DateField( null=True)
+    left_amount= models.CharField(null=True,max_length=50)
+    remind_date= models.DateField( null=False, default=None)
     comment= models.TextField(null=False)

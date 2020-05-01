@@ -1,7 +1,7 @@
 from django import urls
 from django.urls import path, include
 from genius.views import (home, Class_create, Class_Update, Class_Delete, Class_Detail, Classes, Add_name,
-                          Student_Main, Student_Create, Student_Update, Student_Delete, Student_Detail, Search)
+                          Student_Main, Student_Create, Student_Update, Student_Delete, Student_Detail, Search, Payment_Create)
 
 app_name = 'genius'
 
@@ -20,4 +20,5 @@ urlpatterns = [
     path('stds/search/',Search , name='std-search'),
     path('stds/<int:id>/edit/', Student_Update, name='std-update'),
     path('stds/<int:id>/delete/', Student_Delete, name='std-delete'),
+    path('payment/', Payment_Create, name='payment'),
 ]

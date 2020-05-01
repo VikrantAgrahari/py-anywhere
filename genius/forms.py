@@ -1,5 +1,5 @@
 from django import forms
-from .models import Create_Class, Name_of_classes, Students
+from .models import Create_Class, Name_of_classes, Students, Payment
 
 
 class Creat_Class_Form(forms.Form):
@@ -14,7 +14,7 @@ class Create_Class_Model_Form(forms.ModelForm):
     class Meta:
         model = Create_Class
         exclude = ['created_by', 'created_on','class_name']
-        fields = ['class_name', 'from_days', 'to_days', 'from_time', 'to_time']
+        fields = ['class_name', 'from_days', 'to_days', 'from_time', 'to_time', 'cost']
         # names = Name_of_classes.objects.values_list('name').distinct()
         #classname = list(names)
         from_choice = [
@@ -33,6 +33,7 @@ class Create_Class_Model_Form(forms.ModelForm):
             #'class_name': forms.TextInput(attrs={'class': 'form-control'}),
             'from_days': forms.Select(choices=from_choice ,attrs={'class': 'form-control'}),
             'to_days': forms.Select(choices=from_choice, attrs={'class': 'form-control'}),
+            'cost': forms.TextInput(attrs={'class': 'form-control'}),
             'from_time': forms.DateTimeInput(attrs={'class': 'from-time form-control'}),
             'to_time': forms.DateTimeInput(attrs={'class': 'from-time form-control'}),
         }
@@ -61,7 +62,7 @@ class Student_Model_Form(forms.ModelForm):
         ('M', 'Male'),
         ('F', 'Female'),
         ('N', 'None'),
-    )
+        )
         relation_choice=(
         ('Uncle', 'Uncle'),
         ('Aunty', 'Aunty'),
@@ -71,7 +72,7 @@ class Student_Model_Form(forms.ModelForm):
         ('Grandma', 'Grandma'),
         ('Sister', 'Sister'),
         ('Brother', 'Brother'),
-    )
+        )
         blood_choice=(
         ('O', 'O'),
         ('A-', 'A-'),
@@ -79,7 +80,7 @@ class Student_Model_Form(forms.ModelForm):
         ('B-', 'B-'),
         ('A+', 'A+'),
         ('AB', 'AB'),
-    )
+        )
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
@@ -102,3 +103,27 @@ class Student_Model_Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(Student_Model_Form, self).__init__(*args, **kwargs)
         self.fields['course']=forms.ModelChoiceField(queryset=Create_Class.objects.all(), label='Select Class', widget=forms.Select(attrs={'class':'form-control'}),help_text='If you are facing in choosing Class, detail is avaiable below.')
+
+
+class Payment_Model_Form(forms.ModelForm):
+    class Meta:
+        model= Payment
+        fields= ('__all__')
+        exclude = ('left_amount',)
+        pay_type=(
+        ('Cash', 'Cash'),
+        ('Card', 'Card'),
+        ('KBZ_Pay', 'KBZ Pay'),
+        )
+        widgets={
+            'remind_date': forms.DateTimeInput(attrs={'class': 'datetime-input form-control'}),
+            'amount': forms.TextInput(attrs={'class': 'form-control'}),
+            'payment_type': forms.Select(choices=pay_type,attrs={'class': 'form-control'}),
+            'comment': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
+        }
+        help_texts = {
+            'comment': '** Note if customer pay in different currency',
+            'amount': '* In USD',
+        }
+    
+    

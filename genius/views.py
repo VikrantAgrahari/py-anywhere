@@ -17,6 +17,7 @@ from django.utils import timezone
 def home(request):
     fieldname = 'class_name'
     to_bday, tmr_bday = Birthday_alert()
+    pay = Payment_alert()
     #tmr_bday, to_bday = Birthday_alert()
     objs = Create_Class.objects.values(fieldname).order_by(
         fieldname).annotate(the_count=Count(fieldname))
@@ -26,6 +27,7 @@ def home(request):
                'count': objs,
                'tmrbday':tmr_bday,
                'tobday':to_bday,
+               'pay':pay,
                }
     return render(request, template_name, context)
 
@@ -214,6 +216,21 @@ def Calculate_Age(bday):
     today = date.today() 
     age = today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)) 
     return age
+
+def Payment_alert():
+    datetime_now = timezone.now()
+    now_day, now_month, now_year = datetime_now.day, datetime_now.month, datetime_now.year
+    objs= Payment.objects.filter(remind_date__day=now_day, remind_date__month=now_month, remind_date__year=now_year)
+    li=[]
+    for l in objs:
+        li.append({
+            'id':l.std.id,
+            'name':l.std.name,
+            'course':l.std.course.class_name,
+            'contact':l.std.parent_contact,
+            'date': l.remind_date
+        })
+    return li
 
 def Birthday_alert():
     #students= Students.objects.all()

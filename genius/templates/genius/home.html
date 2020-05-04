@@ -68,8 +68,31 @@
             <div class="card bg-info">
                 <div class="card-header">Fees Reminder
                 </div>
-                <div class= "card-body">
-
+                <div class= "card-body scrollspy">
+                    {% if pay %}
+                        <table class="table table-sm table-dark">
+                            <thead>
+                                <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Couse</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in pay %}
+                                <tr class="bg-danger">
+                                    <td><a href="/stds/{{t.id}}">{{t.name}}</a></td>
+                                    <td>{{t.course}}</td>
+                                    <td>{{t.contact}}</td>
+                                    <td>{{t.date}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="card-text">No Fees Reminder for Today!</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

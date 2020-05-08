@@ -17,9 +17,7 @@ overflow: auto;
     </div>
     <div class="row ml-4">
     <p>
-        <button class="btn btn-primary" type="button">
-            Print Documents
-        </button>
+        <a href="{% url 'genius:get_pdf'%}" class="btn btn-info">Get Student List</a>
         <a class="btn btn-success ml-3 right" href="{% url 'genius:stds_new' %}">Register New Student</a>
         <div class="col-md-3 mb-4 justify-content-center">
             <div class="card text-center bg-warning text-dark">

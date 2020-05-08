@@ -11,6 +11,10 @@ from datetime import datetime, date
 import datetime as dt
 from datetime import timedelta
 from django.utils import timezone
+import io
+from django.http import FileResponse
+from littleHead.utils import render_to_pdf
+from django.template.loader import get_template
 # Create your views here.
 
 
@@ -330,3 +334,33 @@ def Payment_Create(request):
     template_name='genius/payment.html'
     context={'form':form, 'stds':objs}
     return render(request, template_name, context)
+
+def Payment_Delete(request, id):
+    objs = get_object_or_404(Payment, id=id)
+    templatename = 'genius/payment_delete.html'
+    if request.method == "POST":
+        print('got into post')
+        objs.delete()
+        print('deleted')
+        messages.add_message(request, messages.SUCCESS, 'Deleted Successfully.')
+        return redirect("/stds/{objs.std.id}")
+    context = {'obj': objs, 'form': None}
+    return render(request, templatename, context)
+
+
+def pdf(request):
+    template = get_template('student_lists.html')
+    stds= Students.objects.all()
+    context={
+        'invoice_id':1234,
+        'name':'Vikrant',
+        'amount':300,
+        'date':'Wednesday',
+        'students':stds,
+    }
+    html= template.render(context)
+    pdf= render_to_pdf('student_lists.html',context)
+    if pdf:
+        return HttpResponse(pdf, content_type='application/pdf')
+    return HttpResponse("Not found")
+

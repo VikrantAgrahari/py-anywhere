@@ -1,0 +1,49 @@
+<style>
+    @page {
+        size: A4 portrait;
+        margin: 2cm;
+    }
+    
+</style>
+
+<!doctype html>
+<html lang="en">
+<head>
+</head>
+<body>  
+    <div class='row justify-content-center'>
+        <h2>Little Genius Student Lists</h2>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <table class="table-info table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">DOB</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Grade</th>
+                        <th scope="col">School</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {% for i in students %}
+                        <tr>
+                        <th scope="row">{{i.id}}</th>
+                        <td>{{i.name}}</a></td>
+                        <td>{{i.dob}}</td>
+                        <td>{{i.age}}</td>
+                        <td>{{i.gender}}</td>
+                        <td>{{i.grade}}</td>
+                        <td>{{i.attending_school}}</td>
+                        <td>{{i.address}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
